@@ -1,0 +1,46 @@
+# -*- coding: utf-8 -*-
+import random
+
+# Lista completa de runas
+Runas = ["Fehu", "Uruz", "Thurisaz", "Ansuz", "Raidho", "Kenaz", "Gebo", "Wunjo", 
+         "Hagalaz", "Nauthiz", "Isa", "Jera", "Eiwaz", "Perthro", "Algiz", "Sowilo", 
+         "Tiwaz", "Berkano", "Ehwaz", "Mannaz", "Laguz", "Ingwaz", "Dagaz", "Othala"]
+
+# Cria uma cópia da lista para podermos remover as runas sorteadas
+runas_disponiveis = Runas.copy()
+
+while True:
+    # Verifica se ainda há runas disponíveis
+    if not runas_disponiveis:
+        print("\nTodas as runas foram sorteadas!")
+        break
+    
+    # Embaralha as runas disponíveis
+    random.shuffle(runas_disponiveis)
+    
+    print("\n--- NOVA RODADA ---")
+    print("Runas disponíveis:", len(runas_disponiveis))
+    print("Faça uma pergunta!")
+    input("Pressione Enter quando estiver pronto...")
+    
+    # Mostra as runas disponíveis com índices
+    for i, runa in enumerate(runas_disponiveis):
+        print(f"{i}. {runa}")
+    
+    try:
+        numero = int(input("\nEscolha um número de 0 até {}: ".format(len(runas_disponiveis)-1)))
+        
+        if 0 <= numero < len(runas_disponiveis):
+            runa_escolhida = runas_disponiveis.pop(numero)  # Remove a runa escolhida
+            estado = random.choice(["invertida", "não invertida"])
+            
+            print(f"\nSua runa: {runa_escolhida} ({estado})")
+            print(f"Runas restantes: {len(runas_disponiveis)}")
+            
+            continuar = input("\nDeseja continuar? (s/n): ").lower()
+            if continuar != 's':
+                break
+        else:
+            print("Número fora do intervalo válido!")
+    except ValueError:
+        print("Por favor, digite apenas números inteiros!")
